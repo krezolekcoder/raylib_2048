@@ -65,4 +65,5 @@
         237, 194, 46, 255                                                                          \
     }
 
+
 #endif /* COLORS_PALLETE_H */

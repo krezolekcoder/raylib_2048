@@ -23,6 +23,3 @@ all: $(NAME)
 
 $(NAME): $(SRC)
 	$(CC) $^ -o $@ $(CFLAGS) $(LIBS) $(INCLUDES_DIRS) -L$(LIB_DIRS)
-
-clean: 
-	rm -rf *.o $(NAME) 
