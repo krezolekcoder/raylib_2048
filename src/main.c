@@ -143,8 +143,7 @@ void tiles_init(void)
             prv_game_tiles[x_tile_pos][y_tile_pos].x_pos      = x_tile_pos;
             prv_game_tiles[x_tile_pos][y_tile_pos].y_pos      = y_tile_pos;
 
-            if (x_tile_pos * SCREEN_WIDTH_BLOCK_CNT + y_tile_pos == first_visible_tile_idx ||
-                x_tile_pos * SCREEN_WIDTH_BLOCK_CNT + y_tile_pos == second_visible_tile_idx) {
+            if (x_tile_pos * SCREEN_WIDTH_BLOCK_CNT + y_tile_pos == first_visible_tile_idx) {
                 prv_game_tiles[x_tile_pos][y_tile_pos].tile_color = COLOR_2;
                 prv_game_tiles[x_tile_pos][y_tile_pos].score      = 2;
             }
@@ -174,7 +173,21 @@ void key_pressed_callback(key_pressed_types_t key_pressed_type)
 {
     switch (key_pressed_type) {
     case KEY_TYPE_UP:
-        printf("KEY TYPE UP ! ");
+        // printf("KEY TYPE UP ! ");
+
+        for (int x_tile_pos = 0; x_tile_pos < SCREEN_WIDTH_BLOCK_CNT; x_tile_pos++) {
+            for (int y_tile_pos = 0; y_tile_pos < SCREEN_HEIGHT_BLOCK_CNT; y_tile_pos++) {
+
+                if (prv_game_tiles[x_tile_pos][y_tile_pos].score == 0U) {
+                    continue;
+                }
+
+                // Get tile count for given movement
+                prv_game_tiles[x_tile_pos][y_tile_pos].font_color = BLACK;
+                prv_game_tiles[x_tile_pos][y_tile_pos].x_pos      = x_tile_pos;
+                prv_game_tiles[x_tile_pos][y_tile_pos].y_pos      = y_tile_pos;
+            }
+        }
         break;
 
     case KEY_TYPE_DOWN:
@@ -192,6 +205,8 @@ void key_pressed_callback(key_pressed_types_t key_pressed_type)
         break;
     }
 }
+
+
 void platform_port_draw_tile(uint32_t x_pos, uint32_t y_pos, Color color, uint32_t score, Color font_color)
 {
     char score_buf[10U];
