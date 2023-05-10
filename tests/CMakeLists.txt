@@ -8,6 +8,7 @@ set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra ")
 
 set(INCLUDE_DIRS
 	../src/
+	../include/
 )
 
 set(TEST_INCLUDE_DIRS
@@ -16,13 +17,14 @@ set(TEST_INCLUDE_DIRS
 )
 
 set(SRCS
-	../src/2048_core.c
+	../src/core_2048.c
 )
 
 set(TEST_SRCS
 	test_main.c
 	test_runner.c
 	test_2048_core.c
+	fakes/platform_port.c
 )
 
 set(GLOBAL_DEFINES
