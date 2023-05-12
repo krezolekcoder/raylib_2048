@@ -20,7 +20,7 @@ game_tile_t *core_2048_get_tile(uint32_t x_coord, uint32_t y_coord)
         return NULL;
     }
 
-    return &prv_game_tiles[x_coord][y_coord];
+    return &prv_game_tiles[y_coord][x_coord];
 }
 
 void core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_init_pos)
@@ -46,7 +46,7 @@ void core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_ini
     }
 }
 
-void check_key_pressed(KeyboardKey key_pressed)
+void core_2048_check_key_pressed(KeyboardKey key_pressed)
 {
     // printf("Key pressed %d \r\n", key_pressed);
 
@@ -78,6 +78,19 @@ static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type)
 
     case KEY_TYPE_LEFT:
         printf("KEY TYPE LEFT ! ");
+
+        // for every tile check movement possiblity
+
+        for (int y_tile_pos = 0; y_tile_pos < SCREEN_WIDTH_BLOCK_CNT; y_tile_pos++) {
+            for (int x_tile_pos = 0; x_tile_pos < SCREEN_HEIGHT_BLOCK_CNT; x_tile_pos++) {
+
+                uint8_t tiles_to_move =
+                    prv_calculate_possible_movement_tiles_cnt(x_tile_pos, y_tile_pos, KEY_TYPE_LEFT);
+
+                prv_game_tiles[y_tile_pos][x_tile_pos].x_pos -= tiles_to_move;
+            }
+        }
+        //
         break;
 
     case KEY_TYPE_RIGHT:
@@ -86,6 +99,23 @@ static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type)
     default:
         break;
     }
+}
+
+static uint8_t prv_calculate_possible_movement_tiles_cnt(uint8_t x_pos, uint8_t y_pos, key_pressed_types_t key_pressed)
+{
+    // for left movement
+    uint8_t x_end_pos         = 0U;
+    uint8_t tiles_to_move_cnt = 0U;
+
+    if (x_pos > x_end_pos) {
+        for (int x = x_pos; x > x_end_pos; x--) {
+            if (prv_game_tiles[y_pos][x].score == 0U) {
+                tiles_to_move_cnt++;
+            }
+        }
+    }
+
+    return tiles_to_move_cnt;
 }
 
 

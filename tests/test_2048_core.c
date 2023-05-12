@@ -19,7 +19,14 @@ TEST_TEAR_DOWN(test_2048_core)
 
 TEST(test_2048_core, core_test)
 {
-    game_tile_t *game_tile = core_2048_get_tile(2, 0);
+    game_tile_t *game_tile = core_2048_get_tile(1, 0);
+
+    // initial tile should have score 2
+    TEST_ASSERT_EQUAL(2U, game_tile->score);
+
+    core_2048_check_key_pressed(KEY_LEFT);
+
+    game_tile = core_2048_get_tile(0, 0);
 
     TEST_ASSERT_EQUAL(2U, game_tile->score);
 }
