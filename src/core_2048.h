@@ -31,6 +31,7 @@ typedef struct {
 void         core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_init_pos);
 void         core_2048_check_key_pressed(KeyboardKey key_pressed);
 void         core_2048_draw_grid(void);
+void         core_2048_set_tile_result(uint8_t x_coord, uint8_t y_coord, uint32_t result);
 game_tile_t *core_2048_get_tile(uint32_t x_coord, uint32_t y_coord);
 
 #endif /* CORE_2048_H */

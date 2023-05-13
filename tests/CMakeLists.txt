@@ -24,6 +24,7 @@ set(TEST_SRCS
 	test_main.c
 	test_runner.c
 	test_2048_core.c
+	test_helpers.c
 	fakes/platform_port.c
 )
 

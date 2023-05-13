@@ -15,14 +15,7 @@ static game_tile_t prv_game_tiles[SCREEN_WIDTH_BLOCK_CNT][SCREEN_HEIGHT_BLOCK_CN
 
 static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type);
 
-game_tile_t *core_2048_get_tile(uint32_t x_coord, uint32_t y_coord)
-{
-    if (x_coord >= SCREEN_WIDTH_BLOCK_CNT || y_coord >= SCREEN_HEIGHT_BLOCK_CNT) {
-        return NULL;
-    }
 
-    return &prv_game_tiles[y_coord][x_coord];
-}
 
 void core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_init_pos)
 {
@@ -56,6 +49,15 @@ void core_2048_check_key_pressed(KeyboardKey key_pressed)
             }
         }
     }
+}
+
+game_tile_t *core_2048_get_tile(uint32_t x_coord, uint32_t y_coord)
+{
+    if (x_coord >= SCREEN_WIDTH_BLOCK_CNT || y_coord >= SCREEN_HEIGHT_BLOCK_CNT) {
+        return NULL;
+    }
+
+    return &prv_game_tiles[y_coord][x_coord];
 }
 
 
@@ -120,10 +122,6 @@ static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type)
     }
 }
 
-// static uint8_t prv_calculate_possible_movement_tiles_cnt(uint8_t x_pos, uint8_t y_pos, key_pressed_types_t key_pressed)
-// {
-//     // return tiles_to_move_cnt;
-// }
 
 
 void core_2048_draw_grid(void)
