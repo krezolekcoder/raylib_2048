@@ -2,5 +2,6 @@
 
 TEST_GROUP_RUNNER(test_2048_core)
 {
-    RUN_TEST_CASE(test_2048_core, core_test);
+    RUN_TEST_CASE(test_2048_core, core_test_simple_movement);
+    RUN_TEST_CASE(test_2048_core, core_test_movement_score_merging);
 }

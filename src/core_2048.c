@@ -93,14 +93,16 @@ static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type)
                 printf("X %d POSSIBLE MOVEMENT : %d \r\n", x_tile_pos, x_possible_movement);
 
                 if (prv_game_tiles[0][x_possible_movement].score == 0) {
-                    prv_game_tiles[0][x_possible_movement].score = prv_game_tiles[0][x_tile_pos].score;
-                    prv_game_tiles[0][x_tile_pos].score          = 0;
+                    prv_game_tiles[0][x_possible_movement].score =
+                        prv_game_tiles[0][x_possible_movement + 1].score;
+                    prv_game_tiles[0][x_possible_movement + 1].score = 0;
                 }
-                // else if (prv_game_tiles[0][x_possible_movement].score ==
-                //          prv_game_tiles[0][x_possible_movement].score) {
-                //     prv_game_tiles[0][x_possible_movement].score +=
-                //     prv_game_tiles[0][x_tile_pos].score; prv_game_tiles[0][x_tile_pos].score = 0;
-                // }
+                else if (prv_game_tiles[0][x_possible_movement + 1].score ==
+                         prv_game_tiles[0][x_possible_movement].score) {
+                    prv_game_tiles[0][x_possible_movement].score +=
+                        prv_game_tiles[0][x_possible_movement + 1].score;
+                    prv_game_tiles[0][x_possible_movement + 1].score = 0;
+                }
                 // else {
                 //     ;
                 // }
