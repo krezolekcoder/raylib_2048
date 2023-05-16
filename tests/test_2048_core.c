@@ -27,16 +27,8 @@ TEST_TEAR_DOWN(test_2048_core)
 
 TEST(test_2048_core, core_test_simple_movement)
 {
-    game_tile_t *game_tile = core_2048_get_tile(1, 0);
-
-    // initial tile should have score 2
-    TEST_ASSERT_EQUAL(2U, game_tile->score);
-
     core_2048_check_key_pressed(KEY_LEFT);
-
-    game_tile = core_2048_get_tile(0, 0);
-
-    TEST_ASSERT_EQUAL(2U, game_tile->score);
+    TEST_ASSERT_EQUAL(2U, core_2048_get_tile(0, 0)->score);
 }
 
 TEST(test_2048_core, core_test_movement_score_merging)
@@ -45,27 +37,44 @@ TEST(test_2048_core, core_test_movement_score_merging)
     test_helpers_set_tile_score(1, 0, 2);
     test_helpers_set_tile_score(3, 0, 2);
 
-    test_helpers_print_score_grid();
 
-    printf("LEFT KEY PRESSED : \r\n");
+    // printf("LEFT KEY PRESSED : \r\n");
     core_2048_check_key_pressed(KEY_LEFT);
 
+
+    TEST_ASSERT_EQUAL(4U, core_2048_get_tile(0, 0)->score);
+    TEST_ASSERT_EQUAL(0U, core_2048_get_tile(0, 1)->score);
+    TEST_ASSERT_EQUAL(0U, core_2048_get_tile(0, 2)->score);
+    TEST_ASSERT_EQUAL(0U, core_2048_get_tile(0, 3)->score);
+}
+
+
+TEST(test_2048_core, core_test_movement_score_merging_left_4s)
+{
+    test_helpers_set_tile_score(1, 0, 4);
+    test_helpers_set_tile_score(3, 0, 4);
+
+    test_helpers_set_tile_score(1, 1, 4);
+    test_helpers_set_tile_score(3, 1, 4);
+
+    test_helpers_set_tile_score(1, 2, 4);
+    test_helpers_set_tile_score(3, 2, 4);
+
+    test_helpers_set_tile_score(1, 3, 4);
+    test_helpers_set_tile_score(3, 3, 4);
+
+
+    test_helpers_print_score_grid();
+    core_2048_check_key_pressed(KEY_LEFT);
     test_helpers_print_score_grid();
 
-    game_tile_t *game_tile = core_2048_get_tile(0, 0);
+    TEST_ASSERT_EQUAL(8U, core_2048_get_tile(0, 0)->score);
+    TEST_ASSERT_EQUAL(8U, core_2048_get_tile(0, 1)->score);
+    TEST_ASSERT_EQUAL(8U, core_2048_get_tile(0, 2)->score);
+    TEST_ASSERT_EQUAL(8U, core_2048_get_tile(0, 3)->score);
+}
 
-
-    TEST_ASSERT_EQUAL(4U, game_tile->score);
-
-    game_tile = core_2048_get_tile(0, 1);
-
-    TEST_ASSERT_EQUAL(0U, game_tile->score);
-
-    game_tile = core_2048_get_tile(0, 2);
-
-    TEST_ASSERT_EQUAL(0U, game_tile->score);
-
-    game_tile = core_2048_get_tile(0, 3);
-
-    TEST_ASSERT_EQUAL(0U, game_tile->score);
+TEST(test_2048_core, core_test_movement_score_merging_right)
+{
+    //
 }
