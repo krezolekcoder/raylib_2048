@@ -88,7 +88,8 @@ static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type)
 
         for (int x_tile_pos = 0; x_tile_pos < TILE_CNT_ROW; x_tile_pos++) {
             for (int y_tile_pos = 2U; y_tile_pos >= 0; y_tile_pos--) {
-                for (int y_possible_movement = y_tile_pos; y_possible_movement < 3U; y_possible_movement++) {
+                for (int y_possible_movement = y_tile_pos; y_possible_movement < TILE_CNT_ROW - 1;
+                     y_possible_movement++) {
 
                     if (prv_game_tiles[y_possible_movement + 1][x_tile_pos].score == 0) {
                         prv_game_tiles[y_possible_movement + 1][x_tile_pos].score =
@@ -135,7 +136,8 @@ static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type)
 
         for (int y_tile_pos = 0; y_tile_pos < TILE_CNT_ROW; y_tile_pos++) {
             for (int x_tile_pos = 2U; x_tile_pos >= 0; x_tile_pos--) {
-                for (int x_possible_movement = x_tile_pos; x_possible_movement < 3U; x_possible_movement++) {
+                for (int x_possible_movement = x_tile_pos; x_possible_movement < TILE_CNT_ROW - 1;
+                     x_possible_movement++) {
 
                     if (prv_game_tiles[y_tile_pos][x_possible_movement + 1].score == 0) {
                         prv_game_tiles[y_tile_pos][x_possible_movement + 1].score =

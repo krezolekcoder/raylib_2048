@@ -11,7 +11,7 @@ TEST_GROUP(test_2048_core);
 
 TEST_SETUP(test_2048_core)
 {
-    core_2048_tiles_init(1, 4);
+    // core_2048_tiles_init(1, 4);
 }
 
 TEST_TEAR_DOWN(test_2048_core)
@@ -126,15 +126,30 @@ TEST(test_2048_core, core_test_movement_score_merging_down)
 {
     uint32_t start_score = 2U;
 
-    test_helpers_set_tile_score(0, 2, start_score);
+    test_helpers_set_tile_score(0, 1, start_score);
+    test_helpers_set_tile_score(1, 1, start_score);
+    test_helpers_set_tile_score(2, 1, start_score);
+    test_helpers_set_tile_score(3, 1, start_score);
+
     core_2048_check_key_pressed(KEY_DOWN);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 3)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(1, 3)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(2, 3)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 3)->score);
 
     while (start_score < 2048U) {
-        test_helpers_set_tile_score(0, 2, start_score);
+        test_helpers_set_tile_score(0, 1, start_score);
+        test_helpers_set_tile_score(1, 1, start_score);
+        test_helpers_set_tile_score(2, 1, start_score);
+        test_helpers_set_tile_score(3, 1, start_score);
+
+
         core_2048_check_key_pressed(KEY_DOWN);
         start_score = start_score << 1U;
 
         TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 3)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(1, 3)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(2, 3)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 3)->score);
     }
 }
