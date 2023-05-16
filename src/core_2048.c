@@ -63,15 +63,51 @@ static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type)
 {
     switch (key_pressed_type) {
     case KEY_TYPE_UP:
+        for (int x_tile_pos = 0; x_tile_pos < TILE_CNT_ROW; x_tile_pos++) {
+            for (int y_tile_pos = 1; y_tile_pos < TILE_CNT_ROW; y_tile_pos++) {
+                for (int y_possible_movement = y_tile_pos - 1; y_possible_movement >= 0; y_possible_movement--) {
+
+                    if (prv_game_tiles[y_possible_movement][x_tile_pos].score == 0) {
+                        prv_game_tiles[y_possible_movement][x_tile_pos].score =
+                            prv_game_tiles[y_possible_movement + 1][x_tile_pos].score;
+                        prv_game_tiles[y_possible_movement + 1][x_tile_pos].score = 0;
+                    }
+                    else if (prv_game_tiles[y_possible_movement + 1][x_tile_pos].score ==
+                             prv_game_tiles[y_possible_movement][x_tile_pos].score) {
+                        prv_game_tiles[y_possible_movement][x_tile_pos].score +=
+                            prv_game_tiles[y_possible_movement + 1][x_tile_pos].score;
+                        prv_game_tiles[y_possible_movement + 1][x_tile_pos].score = 0;
+                    }
+                }
+            }
+        }
 
         break;
 
     case KEY_TYPE_DOWN:
-        printf("KEY TYPE DOWN ! ");
+
+        for (int x_tile_pos = 0; x_tile_pos < TILE_CNT_ROW; x_tile_pos++) {
+            for (int y_tile_pos = 2U; y_tile_pos >= 0; y_tile_pos--) {
+                for (int y_possible_movement = y_tile_pos; y_possible_movement < 3U; y_possible_movement++) {
+
+                    if (prv_game_tiles[y_possible_movement + 1][x_tile_pos].score == 0) {
+                        prv_game_tiles[y_possible_movement + 1][x_tile_pos].score =
+                            prv_game_tiles[y_possible_movement][x_tile_pos].score;
+                        prv_game_tiles[y_possible_movement][x_tile_pos].score = 0;
+                    }
+                    else if (prv_game_tiles[y_possible_movement + 1][x_tile_pos].score ==
+                             prv_game_tiles[y_possible_movement][x_tile_pos].score) {
+                        prv_game_tiles[y_possible_movement + 1][x_tile_pos].score +=
+                            prv_game_tiles[y_possible_movement][x_tile_pos].score;
+                        prv_game_tiles[y_possible_movement][x_tile_pos].score = 0;
+                    }
+                }
+            }
+        }
+
         break;
 
     case KEY_TYPE_LEFT:
-        printf("KEY TYPE LEFT ! ");
 
         for (int y_tile_pos = 0; y_tile_pos < TILE_CNT_ROW; y_tile_pos++) {
             for (int x_tile_pos = 1; x_tile_pos < TILE_CNT_ROW; x_tile_pos++) {
@@ -96,36 +132,32 @@ static void prv_key_pressed_callback(key_pressed_types_t key_pressed_type)
         break;
 
     case KEY_TYPE_RIGHT:
-        printf("KEY TYPE RIGHT !");
 
         for (int y_tile_pos = 0; y_tile_pos < TILE_CNT_ROW; y_tile_pos++) {
-            for (int x_tile_pos = TILE_CNT_ROW - 1; x_tile_pos > 0; x_tile_pos--) {
-                for (int x_possible_movement = x_tile_pos - 1; x_possible_movement >= 0; x_possible_movement--) {
-                    printf("X %d POSSIBLE MOVEMENT : %d \r\n", x_tile_pos, x_possible_movement);
+            for (int x_tile_pos = 2U; x_tile_pos >= 0; x_tile_pos--) {
+                for (int x_possible_movement = x_tile_pos; x_possible_movement < 3U; x_possible_movement++) {
 
-                    if (prv_game_tiles[y_tile_pos][x_possible_movement].score == 0) {
-                        prv_game_tiles[y_tile_pos][x_possible_movement].score =
-                            prv_game_tiles[y_tile_pos][x_possible_movement + 1].score;
-                        prv_game_tiles[y_tile_pos][x_possible_movement + 1].score = 0;
+                    if (prv_game_tiles[y_tile_pos][x_possible_movement + 1].score == 0) {
+                        prv_game_tiles[y_tile_pos][x_possible_movement + 1].score =
+                            prv_game_tiles[y_tile_pos][x_possible_movement].score;
+                        prv_game_tiles[y_tile_pos][x_possible_movement].score = 0;
                     }
                     else if (prv_game_tiles[y_tile_pos][x_possible_movement + 1].score ==
                              prv_game_tiles[y_tile_pos][x_possible_movement].score) {
-                        prv_game_tiles[y_tile_pos][x_possible_movement].score +=
-                            prv_game_tiles[y_tile_pos][x_possible_movement + 1].score;
-                        prv_game_tiles[y_tile_pos][x_possible_movement + 1].score = 0;
+                        prv_game_tiles[y_tile_pos][x_possible_movement + 1].score +=
+                            prv_game_tiles[y_tile_pos][x_possible_movement].score;
+                        prv_game_tiles[y_tile_pos][x_possible_movement].score = 0;
                     }
                 }
             }
-
-            break;
         }
+
 
         break;
     default:
         break;
     }
 }
-
 
 
 void core_2048_draw_grid(void)

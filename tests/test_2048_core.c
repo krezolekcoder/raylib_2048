@@ -25,56 +25,116 @@ TEST_TEAR_DOWN(test_2048_core)
     }
 }
 
-TEST(test_2048_core, core_test_simple_movement)
+TEST(test_2048_core, core_test_movement_score_merging_left)
 {
-    core_2048_check_key_pressed(KEY_LEFT);
-    TEST_ASSERT_EQUAL(2U, core_2048_get_tile(0, 0)->score);
-}
+    uint32_t start_score = 2U;
 
-TEST(test_2048_core, core_test_movement_score_merging)
-{
+    test_helpers_set_tile_score(1, 0, start_score);
+    test_helpers_set_tile_score(1, 1, start_score);
+    test_helpers_set_tile_score(1, 2, start_score);
+    test_helpers_set_tile_score(1, 3, start_score);
 
-    test_helpers_set_tile_score(1, 0, 2);
-    test_helpers_set_tile_score(3, 0, 2);
-
-
-    // printf("LEFT KEY PRESSED : \r\n");
     core_2048_check_key_pressed(KEY_LEFT);
 
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 0)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 1)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 2)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 3)->score);
 
-    TEST_ASSERT_EQUAL(4U, core_2048_get_tile(0, 0)->score);
-    TEST_ASSERT_EQUAL(0U, core_2048_get_tile(0, 1)->score);
-    TEST_ASSERT_EQUAL(0U, core_2048_get_tile(0, 2)->score);
-    TEST_ASSERT_EQUAL(0U, core_2048_get_tile(0, 3)->score);
-}
+    while (start_score < 2048U) {
+        test_helpers_set_tile_score(1, 0, start_score);
+        test_helpers_set_tile_score(1, 1, start_score);
+        test_helpers_set_tile_score(1, 2, start_score);
+        test_helpers_set_tile_score(1, 3, start_score);
 
+        core_2048_check_key_pressed(KEY_LEFT);
+        start_score = start_score << 1U;
 
-TEST(test_2048_core, core_test_movement_score_merging_left_4s)
-{
-    test_helpers_set_tile_score(1, 0, 4);
-    test_helpers_set_tile_score(3, 0, 4);
-
-    test_helpers_set_tile_score(1, 1, 4);
-    test_helpers_set_tile_score(3, 1, 4);
-
-    test_helpers_set_tile_score(1, 2, 4);
-    test_helpers_set_tile_score(3, 2, 4);
-
-    test_helpers_set_tile_score(1, 3, 4);
-    test_helpers_set_tile_score(3, 3, 4);
-
-
-    test_helpers_print_score_grid();
-    core_2048_check_key_pressed(KEY_LEFT);
-    test_helpers_print_score_grid();
-
-    TEST_ASSERT_EQUAL(8U, core_2048_get_tile(0, 0)->score);
-    TEST_ASSERT_EQUAL(8U, core_2048_get_tile(0, 1)->score);
-    TEST_ASSERT_EQUAL(8U, core_2048_get_tile(0, 2)->score);
-    TEST_ASSERT_EQUAL(8U, core_2048_get_tile(0, 3)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 0)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 1)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 2)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 3)->score);
+    }
 }
 
 TEST(test_2048_core, core_test_movement_score_merging_right)
 {
-    //
+    uint32_t start_score = 2U;
+
+    test_helpers_set_tile_score(1, 0, start_score);
+    test_helpers_set_tile_score(1, 1, start_score);
+    test_helpers_set_tile_score(1, 2, start_score);
+    test_helpers_set_tile_score(1, 3, start_score);
+
+    core_2048_check_key_pressed(KEY_RIGHT);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 0)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 1)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 2)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 3)->score);
+
+
+    while (start_score < 2048U) {
+        test_helpers_set_tile_score(1, 0, start_score);
+        test_helpers_set_tile_score(1, 1, start_score);
+        test_helpers_set_tile_score(1, 2, start_score);
+        test_helpers_set_tile_score(1, 3, start_score);
+
+        core_2048_check_key_pressed(KEY_RIGHT);
+        start_score = start_score << 1U;
+
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 0)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 1)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 2)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 3)->score);
+    }
+}
+
+
+TEST(test_2048_core, core_test_movement_score_merging_up)
+{
+    uint32_t start_score = 2U;
+
+    test_helpers_set_tile_score(0, 1, start_score);
+    test_helpers_set_tile_score(1, 1, start_score);
+    test_helpers_set_tile_score(2, 1, start_score);
+    test_helpers_set_tile_score(3, 1, start_score);
+
+    core_2048_check_key_pressed(KEY_UP);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 0)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(1, 0)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(2, 0)->score);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 0)->score);
+
+    while (start_score < 2048U) {
+        test_helpers_set_tile_score(0, 1, start_score);
+        test_helpers_set_tile_score(1, 1, start_score);
+        test_helpers_set_tile_score(2, 1, start_score);
+        test_helpers_set_tile_score(3, 1, start_score);
+
+
+        core_2048_check_key_pressed(KEY_UP);
+        start_score = start_score << 1U;
+
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 0)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(1, 0)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(2, 0)->score);
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 0)->score);
+    }
+}
+
+TEST(test_2048_core, core_test_movement_score_merging_down)
+{
+    uint32_t start_score = 2U;
+
+    test_helpers_set_tile_score(0, 2, start_score);
+    core_2048_check_key_pressed(KEY_DOWN);
+    TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 3)->score);
+
+    while (start_score < 2048U) {
+        test_helpers_set_tile_score(0, 2, start_score);
+        core_2048_check_key_pressed(KEY_DOWN);
+        start_score = start_score << 1U;
+
+        TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 3)->score);
+    }
 }
