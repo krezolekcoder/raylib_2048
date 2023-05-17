@@ -37,16 +37,18 @@ bool core_2048_movement_update(movement_type_t movement)
             for (int y_tile_pos = 1; y_tile_pos < TILE_CNT_ROW; y_tile_pos++) {
                 for (int y_shift_movement = y_tile_pos - 1; y_shift_movement >= 0; y_shift_movement--) {
 
-                    if (prv_game_tiles[y_shift_movement][x_tile_pos].score == 0 &&
-                        prv_game_tiles[y_shift_movement + 1][x_tile_pos].score != 0) {
+                    if (prv_game_tiles[y_shift_movement + 1][x_tile_pos].score == 0) {
+                        continue;
+                    }
+
+                    if (prv_game_tiles[y_shift_movement][x_tile_pos].score == 0) {
                         prv_game_tiles[y_shift_movement][x_tile_pos].score =
                             prv_game_tiles[y_shift_movement + 1][x_tile_pos].score;
                         prv_game_tiles[y_shift_movement + 1][x_tile_pos].score = 0;
                         tile_movement_counter++;
                     }
-                    else if ((prv_game_tiles[y_shift_movement + 1][x_tile_pos].score ==
-                              prv_game_tiles[y_shift_movement][x_tile_pos].score) &&
-                             prv_game_tiles[y_shift_movement + 1][x_tile_pos].score != 0) {
+                    else if (prv_game_tiles[y_shift_movement + 1][x_tile_pos].score ==
+                             prv_game_tiles[y_shift_movement][x_tile_pos].score) {
                         prv_game_tiles[y_shift_movement][x_tile_pos].score +=
                             prv_game_tiles[y_shift_movement + 1][x_tile_pos].score;
                         prv_game_tiles[y_shift_movement + 1][x_tile_pos].score = 0;
@@ -64,16 +66,18 @@ bool core_2048_movement_update(movement_type_t movement)
             for (int y_tile_pos = 2U; y_tile_pos >= 0; y_tile_pos--) {
                 for (int y_shift_movement = y_tile_pos; y_shift_movement < TILE_CNT_ROW - 1; y_shift_movement++) {
 
-                    if (prv_game_tiles[y_shift_movement + 1][x_tile_pos].score == 0 &&
-                        prv_game_tiles[y_shift_movement][x_tile_pos].score != 0) {
+                    if (prv_game_tiles[y_shift_movement][x_tile_pos].score == 0U) {
+                        continue;
+                    }
+
+                    if (prv_game_tiles[y_shift_movement + 1][x_tile_pos].score == 0) {
                         prv_game_tiles[y_shift_movement + 1][x_tile_pos].score =
                             prv_game_tiles[y_shift_movement][x_tile_pos].score;
                         prv_game_tiles[y_shift_movement][x_tile_pos].score = 0;
                         tile_movement_counter++;
                     }
-                    else if ((prv_game_tiles[y_shift_movement + 1][x_tile_pos].score ==
-                              prv_game_tiles[y_shift_movement][x_tile_pos].score) &&
-                             prv_game_tiles[y_shift_movement][x_tile_pos].score != 0) {
+                    else if (prv_game_tiles[y_shift_movement + 1][x_tile_pos].score ==
+                             prv_game_tiles[y_shift_movement][x_tile_pos].score) {
                         prv_game_tiles[y_shift_movement + 1][x_tile_pos].score +=
                             prv_game_tiles[y_shift_movement][x_tile_pos].score;
                         prv_game_tiles[y_shift_movement][x_tile_pos].score = 0;
@@ -91,16 +95,18 @@ bool core_2048_movement_update(movement_type_t movement)
             for (int x_tile_pos = 1; x_tile_pos < TILE_CNT_ROW; x_tile_pos++) {
                 for (int x_shift_movement = x_tile_pos - 1; x_shift_movement >= 0; x_shift_movement--) {
 
-                    if (prv_game_tiles[y_tile_pos][x_shift_movement].score == 0 &&
-                        prv_game_tiles[y_tile_pos][x_shift_movement + 1].score != 0) {
+                    if (prv_game_tiles[y_tile_pos][x_shift_movement + 1].score == 0) {
+                        continue;
+                    }
+
+                    if (prv_game_tiles[y_tile_pos][x_shift_movement].score == 0) {
                         prv_game_tiles[y_tile_pos][x_shift_movement].score =
                             prv_game_tiles[y_tile_pos][x_shift_movement + 1].score;
                         prv_game_tiles[y_tile_pos][x_shift_movement + 1].score = 0;
                         tile_movement_counter++;
                     }
-                    else if ((prv_game_tiles[y_tile_pos][x_shift_movement + 1].score ==
-                              prv_game_tiles[y_tile_pos][x_shift_movement].score) &&
-                             prv_game_tiles[y_tile_pos][x_shift_movement].score != 0) {
+                    else if (prv_game_tiles[y_tile_pos][x_shift_movement + 1].score ==
+                             prv_game_tiles[y_tile_pos][x_shift_movement].score) {
                         prv_game_tiles[y_tile_pos][x_shift_movement].score +=
                             prv_game_tiles[y_tile_pos][x_shift_movement + 1].score;
                         prv_game_tiles[y_tile_pos][x_shift_movement + 1].score = 0;
@@ -123,16 +129,14 @@ bool core_2048_movement_update(movement_type_t movement)
                         continue;
                     }
 
-                    if (prv_game_tiles[y_tile_pos][x_shift_movement + 1].score == 0 &&
-                        prv_game_tiles[y_tile_pos][x_shift_movement].score != 0) {
+                    if (prv_game_tiles[y_tile_pos][x_shift_movement + 1].score == 0) {
                         prv_game_tiles[y_tile_pos][x_shift_movement + 1].score =
                             prv_game_tiles[y_tile_pos][x_shift_movement].score;
                         prv_game_tiles[y_tile_pos][x_shift_movement].score = 0;
                         tile_movement_counter++;
                     }
-                    else if ((prv_game_tiles[y_tile_pos][x_shift_movement + 1].score ==
-                              prv_game_tiles[y_tile_pos][x_shift_movement].score) &&
-                             prv_game_tiles[y_tile_pos][x_shift_movement].score != 0U) {
+                    else if (prv_game_tiles[y_tile_pos][x_shift_movement + 1].score ==
+                             prv_game_tiles[y_tile_pos][x_shift_movement].score) {
                         prv_game_tiles[y_tile_pos][x_shift_movement + 1].score +=
                             prv_game_tiles[y_tile_pos][x_shift_movement].score;
                         prv_game_tiles[y_tile_pos][x_shift_movement].score = 0;

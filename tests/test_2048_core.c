@@ -161,18 +161,11 @@ TEST(test_2048_core, core_test_movement_possibility_left_right)
     test_helpers_set_tile_score(2, 0, 8);
     test_helpers_set_tile_score(3, 0, 2);
 
-    test_helpers_print_score_grid();
 
     bool movement_result = core_2048_movement_update(MOVEMENT_RIGHT);
-
-    test_helpers_print_score_grid();
-
     TEST_ASSERT_EQUAL(false, movement_result);
 
     movement_result = core_2048_movement_update(MOVEMENT_LEFT);
-
-    test_helpers_print_score_grid();
-
     TEST_ASSERT_EQUAL(false, movement_result);
 }
 
@@ -183,17 +176,9 @@ TEST(test_2048_core, core_test_movement_possibility_up_down)
     test_helpers_set_tile_score(0, 2, 8);
     test_helpers_set_tile_score(0, 3, 2);
 
-    test_helpers_print_score_grid();
-
     bool movement_result = core_2048_movement_update(MOVEMENT_DOWN);
-
-    test_helpers_print_score_grid();
-
     TEST_ASSERT_EQUAL(false, movement_result);
 
     movement_result = core_2048_movement_update(MOVEMENT_UP);
-
-    test_helpers_print_score_grid();
-
     TEST_ASSERT_EQUAL(false, movement_result);
 }
