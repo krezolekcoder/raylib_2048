@@ -11,7 +11,8 @@ void core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_ini
     for (int x_tile_pos = 0; x_tile_pos < TILE_CNT_ROW; x_tile_pos++) {
         for (int y_tile_pos = 0; y_tile_pos < TILE_CNT_ROW; y_tile_pos++) {
 
-            if (x_tile_pos * TILE_CNT_ROW + y_tile_pos == first_tile_init_pos) {
+            uint32_t tile_coord = x_tile_pos * TILE_CNT_ROW + y_tile_pos;
+            if (tile_coord == first_tile_init_pos || tile_coord == second_tile_init_pos) {
                 prv_game_tiles_score[x_tile_pos][y_tile_pos] = 2;
             }
             else {

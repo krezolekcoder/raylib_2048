@@ -1,5 +1,6 @@
 #include "platform_port.h"
 #include "config.h"
+#include <stdio.h>
 
 
 #define TEXT_IN_BLOCK_PIXEL_VALUE(box_start_x_coord)                                               \
