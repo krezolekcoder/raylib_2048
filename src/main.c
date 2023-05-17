@@ -27,6 +27,8 @@ static const keyboard_mapping_t prv_keys_mapping[MOVEMENT_CNT] = {
     [MOVEMENT_RIGHT].key_mappings = { KEY_D, KEY_RIGHT, KEY_KP_6},
 };
 
+static void prv_check_key_pressed(KeyboardKey key_pressed);
+static void prv_2048_game_draw_grid(void);
 
 int main(void)
 {
@@ -51,14 +53,14 @@ int main(void)
         // Update
         //----------------------------------------------------------------------------------
 
-        check_key_pressed(GetKeyPressed());
+        prv_check_key_pressed(GetKeyPressed());
         //----------------------------------------------------------------------------------
 
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
         ClearBackground(COLOR_EMPTY);
-        prv_grid_draw();
+        prv_2048_game_draw_grid();
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
@@ -82,6 +84,20 @@ void prv_check_key_pressed(KeyboardKey key_pressed)
                 core_2048_movement_update(movement_type);
                 break;
             }
+        }
+    }
+}
+
+void prv_2048_game_draw_grid(void)
+{
+    game_tile_t *game_tile;
+
+    for (int y_coord = 0; y_coord < TILE_CNT_ROW; y_coord++) {
+        for (int x_coord = 0; x_coord < TILE_CNT_ROW; x_coord++) {
+            game_tile = core_2048_get_tile(x_coord, y_coord);
+
+            platform_port_draw_tile(game_tile->x_pos, game_tile->y_pos, game_tile->tile_color,
+                                    game_tile->score, game_tile->font_color);
         }
     }
 }

@@ -5,6 +5,8 @@
 
 static game_tile_t prv_game_tiles[TILE_CNT_ROW][TILE_CNT_ROW];
 
+static bool prv_is_movement_possible(movement_type_t movement);
+
 void core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_init_pos)
 {
 
@@ -25,8 +27,12 @@ void core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_ini
     }
 }
 
-void core_2048_movement_update(movement_type_t movement)
+bool core_2048_movement_update(movement_type_t movement)
 {
+    if (!prv_is_movement_possible(movement)) {
+        return false;
+    }
+
     switch (movement) {
     case MOVEMENT_UP:
         for (int x_tile_pos = 0; x_tile_pos < TILE_CNT_ROW; x_tile_pos++) {
@@ -118,13 +124,13 @@ void core_2048_movement_update(movement_type_t movement)
             }
         }
 
-
         break;
     default:
         break;
     }
-}
 
+    return true;
+}
 
 game_tile_t *core_2048_get_tile(uint32_t x_coord, uint32_t y_coord)
 {
@@ -135,15 +141,7 @@ game_tile_t *core_2048_get_tile(uint32_t x_coord, uint32_t y_coord)
     return &prv_game_tiles[y_coord][x_coord];
 }
 
-
-
-void core_2048_draw_grid(void)
+static bool prv_is_movement_possible(movement_type_t movement)
 {
-    for (int i = 0; i < TILE_CNT_ROW; i++) {
-        for (int j = 0; j < TILE_CNT_ROW; j++) {
-            platform_port_draw_tile(prv_game_tiles[i][j].x_pos, prv_game_tiles[i][j].y_pos,
-                                    prv_game_tiles[i][j].tile_color, prv_game_tiles[i][j].score,
-                                    prv_game_tiles[i][j].font_color);
-        }
-    }
+    return true;
 }

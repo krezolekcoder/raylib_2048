@@ -13,11 +13,13 @@ INCLUDES_DIRS= -Iinclude/ -Isrc/
 
 LIB_DIRS = lib/
 
-SRC_DIR = src/
+SRC_DIR = src
 #Compiler
 CC = gcc
 
-SRC = $(SRC_DIR)main.c 
+SRC = $(SRC_DIR)/main.c 
+SRC += $(SRC_DIR)/core_2048.c
+SRC += $(SRC_DIR)/platform_port.c
 
 all: $(NAME)
 
