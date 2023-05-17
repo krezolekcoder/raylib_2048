@@ -19,6 +19,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+typedef struct {
+    KeyboardKey key_mappings[MAX_KEY_MAPPINGS];
+} keyboard_mapping_t;
 
 static const keyboard_mapping_t prv_keys_mapping[MOVEMENT_CNT] = {
     [MOVEMENT_UP].key_mappings    = {KEY_W,  KEY_UP,    KEY_KP_8},
@@ -90,11 +93,11 @@ void prv_check_key_pressed(KeyboardKey key_pressed)
 
 void prv_2048_game_draw_grid(void)
 {
-    game_tile_t *game_tile;
+    game_tile_score_t *game_tile;
 
     for (int y_coord = 0; y_coord < TILE_CNT_ROW; y_coord++) {
         for (int x_coord = 0; x_coord < TILE_CNT_ROW; x_coord++) {
-            game_tile = core_2048_get_tile(x_coord, y_coord);
+            game_tile = core_2048_get_tile_score(x_coord, y_coord);
 
             platform_port_draw_tile(game_tile->x_pos, game_tile->y_pos, game_tile->tile_color,
                                     game_tile->score, game_tile->font_color);
