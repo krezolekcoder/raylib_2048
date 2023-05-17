@@ -273,3 +273,37 @@ void core_2048_set_tile_score(uint32_t x_coord, uint32_t y_coord, uint32_t score
 {
     prv_game_tiles_score[y_coord][x_coord] = score;
 }
+
+
+void core_2048_get_random_free_tile_coords(uint32_t *x_coord, uint32_t *y_coord)
+{
+    typedef struct {
+        uint32_t x;
+        uint32_t y;
+    } coord_pair_t;
+
+    coord_pair_t coords[16U];
+    uint32_t     coords_pair_idx = 0U;
+    for (uint32_t y_tile = 0; y_tile < TILE_CNT_ROW; y_tile++) {
+        for (uint32_t x_tile = 0; x_tile < TILE_CNT_ROW; x_tile++) {
+
+            if (prv_game_tiles_score[y_tile][x_tile] == 0) {
+
+                coords[coords_pair_idx].x = x_tile;
+                coords[coords_pair_idx].y = y_tile;
+
+                coords_pair_idx++;
+
+                printf("PAIR %d X : %d  Y: %d \r\n", coords_pair_idx, x_tile, y_tile);
+            }
+        }
+    }
+
+    uint32_t random_idx = platform_port_get_random_nbr(0U, coords_pair_idx);
+
+    // printf("RANDOM IDX : %d x_coord %d y_coord %d \r\n", random_idx, coords[random_idx].x,
+    //        coords[random_idx].y);
+
+    *x_coord = coords[random_idx].x;
+    *y_coord = coords[random_idx].y;
+}

@@ -176,6 +176,10 @@ TEST(test_2048_core, core_test_movement_possibility_up_down)
     core_2048_set_tile_score(0, 2, 8);
     core_2048_set_tile_score(0, 3, 2);
 
+    uint32_t x_coord = 0;
+    uint32_t y_coord = 0;
+
+    core_2048_get_random_free_tile_coords(&x_coord, &y_coord);
     bool movement_result = core_2048_movement_update(MOVEMENT_DOWN);
     TEST_ASSERT_EQUAL(false, movement_result);
 

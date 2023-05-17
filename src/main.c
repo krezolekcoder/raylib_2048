@@ -87,6 +87,15 @@ void prv_check_key_pressed(KeyboardKey key_pressed)
 
                 printf("MOVEMENT %d \r\n", movement_type);
                 core_2048_movement_update(movement_type);
+
+
+                uint32_t x_coord = 0U;
+                uint32_t y_coord = 0U;
+
+                core_2048_get_random_free_tile_coords(&x_coord, &y_coord);
+
+                core_2048_set_tile_score(y_coord, x_coord, 2U);
+
                 break;
             }
         }

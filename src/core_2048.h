@@ -21,8 +21,8 @@ typedef uint32_t game_tile_score_t;
 void              core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_init_pos);
 bool              core_2048_movement_update(movement_type_t movement);
 bool              core_2048_check_gameover_condition(void);
-void              core_2048_set_tile_result(uint8_t x_coord, uint8_t y_coord, uint32_t result);
 game_tile_score_t core_2048_get_tile_score(uint32_t x_coord, uint32_t y_coord);
 void              core_2048_set_tile_score(uint32_t x_coord, uint32_t y_coord, uint32_t score);
+void              core_2048_get_random_free_tile_coords(uint32_t *x_coord, uint32_t *y_coord);
 
 #endif /* CORE_2048_H */
