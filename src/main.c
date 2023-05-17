@@ -20,6 +20,14 @@
 #include <time.h>
 
 
+static const keyboard_mapping_t prv_keys_mapping[MOVEMENT_CNT] = {
+    [MOVEMENT_UP].key_mappings    = {KEY_W,  KEY_UP,    KEY_KP_8},
+    [MOVEMENT_DOWN].key_mappings  = { KEY_S, KEY_DOWN,  KEY_KP_2},
+    [MOVEMENT_LEFT].key_mappings  = { KEY_A, KEY_LEFT,  KEY_KP_4},
+    [MOVEMENT_RIGHT].key_mappings = { KEY_D, KEY_RIGHT, KEY_KP_6},
+};
+
+
 int main(void)
 {
     // Initialization
@@ -61,4 +69,19 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
     return 0;
+}
+
+
+void prv_check_key_pressed(KeyboardKey key_pressed)
+{
+
+    for (movement_type_t movement_type = MOVEMENT_UP; movement_type < MOVEMENT_CNT; movement_type++) {
+        for (int key_mapping_idx = 0; key_mapping_idx < MAX_KEY_MAPPINGS; key_mapping_idx++) {
+            if (key_pressed == prv_keys_mapping[movement_type].key_mappings[key_mapping_idx]) {
+
+                core_2048_movement_update(movement_type);
+                break;
+            }
+        }
+    }
 }

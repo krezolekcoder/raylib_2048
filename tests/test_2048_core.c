@@ -34,7 +34,7 @@ TEST(test_2048_core, core_test_movement_score_merging_left)
     test_helpers_set_tile_score(1, 2, start_score);
     test_helpers_set_tile_score(1, 3, start_score);
 
-    core_2048_check_key_pressed(KEY_LEFT);
+    core_2048_movement_update(MOVEMENT_LEFT);
 
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 0)->score);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 1)->score);
@@ -47,7 +47,7 @@ TEST(test_2048_core, core_test_movement_score_merging_left)
         test_helpers_set_tile_score(1, 2, start_score);
         test_helpers_set_tile_score(1, 3, start_score);
 
-        core_2048_check_key_pressed(KEY_LEFT);
+        core_2048_movement_update(MOVEMENT_LEFT);
         start_score = start_score << 1U;
 
         TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 0)->score);
@@ -66,7 +66,7 @@ TEST(test_2048_core, core_test_movement_score_merging_right)
     test_helpers_set_tile_score(1, 2, start_score);
     test_helpers_set_tile_score(1, 3, start_score);
 
-    core_2048_check_key_pressed(KEY_RIGHT);
+    core_2048_movement_update(MOVEMENT_RIGHT);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 0)->score);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 1)->score);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 2)->score);
@@ -79,7 +79,7 @@ TEST(test_2048_core, core_test_movement_score_merging_right)
         test_helpers_set_tile_score(1, 2, start_score);
         test_helpers_set_tile_score(1, 3, start_score);
 
-        core_2048_check_key_pressed(KEY_RIGHT);
+        core_2048_movement_update(MOVEMENT_RIGHT);
         start_score = start_score << 1U;
 
         TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(3, 0)->score);
@@ -99,7 +99,7 @@ TEST(test_2048_core, core_test_movement_score_merging_up)
     test_helpers_set_tile_score(2, 1, start_score);
     test_helpers_set_tile_score(3, 1, start_score);
 
-    core_2048_check_key_pressed(KEY_UP);
+    core_2048_movement_update(MOVEMENT_UP);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 0)->score);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(1, 0)->score);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(2, 0)->score);
@@ -112,7 +112,7 @@ TEST(test_2048_core, core_test_movement_score_merging_up)
         test_helpers_set_tile_score(3, 1, start_score);
 
 
-        core_2048_check_key_pressed(KEY_UP);
+        core_2048_movement_update(MOVEMENT_UP);
         start_score = start_score << 1U;
 
         TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 0)->score);
@@ -131,7 +131,7 @@ TEST(test_2048_core, core_test_movement_score_merging_down)
     test_helpers_set_tile_score(2, 1, start_score);
     test_helpers_set_tile_score(3, 1, start_score);
 
-    core_2048_check_key_pressed(KEY_DOWN);
+    core_2048_movement_update(MOVEMENT_DOWN);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 3)->score);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(1, 3)->score);
     TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(2, 3)->score);
@@ -144,7 +144,7 @@ TEST(test_2048_core, core_test_movement_score_merging_down)
         test_helpers_set_tile_score(3, 1, start_score);
 
 
-        core_2048_check_key_pressed(KEY_DOWN);
+        core_2048_movement_update(MOVEMENT_DOWN);
         start_score = start_score << 1U;
 
         TEST_ASSERT_EQUAL(start_score, core_2048_get_tile(0, 3)->score);
