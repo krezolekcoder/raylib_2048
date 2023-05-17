@@ -1,5 +1,5 @@
-#ifndef COLORS_PALLETE_H
-#define COLORS_PALLETE_H
+#ifndef COLORS_PALETTE_H
+#define COLORS_PALETTE_H
 
 #include "raylib.h"
 
@@ -66,4 +66,4 @@
     }
 
 
-#endif /* COLORS_PALLETE_H */
+#endif /* COLORS_PALETTE_H */
