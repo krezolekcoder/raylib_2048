@@ -182,3 +182,23 @@ TEST(test_2048_core, core_test_movement_possibility_up_down)
     movement_result = core_2048_movement_update(MOVEMENT_UP);
     TEST_ASSERT_EQUAL(false, movement_result);
 }
+
+TEST(test_2048_core, core_test_game_over_condition)
+{
+    uint32_t start_score = 2U;
+
+    for (int y_coord = 0; y_coord < 4; y_coord++) {
+        for (int x_coord = 0; x_coord < 4; x_coord++) {
+
+            test_helpers_set_tile_score(y_coord, x_coord, start_score);
+
+            start_score = start_score << 1U;
+        }
+    }
+
+    test_helpers_print_score_grid();
+
+    bool game_over_condition_met = core_2048_check_gameover_condition();
+
+    TEST_ASSERT_EQUAL(true, game_over_condition_met);
+}
