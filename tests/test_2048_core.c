@@ -185,13 +185,13 @@ TEST(test_2048_core, core_test_movement_possibility_up_down)
 
     test_helpers_print_score_grid();
 
-    bool movement_result = core_2048_movement_update(MOVEMENT_UP);
+    bool movement_result = core_2048_movement_update(MOVEMENT_DOWN);
 
     test_helpers_print_score_grid();
 
     TEST_ASSERT_EQUAL(false, movement_result);
 
-    movement_result = core_2048_movement_update(MOVEMENT_DOWN);
+    movement_result = core_2048_movement_update(MOVEMENT_UP);
 
     test_helpers_print_score_grid();
 
