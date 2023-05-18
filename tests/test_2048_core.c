@@ -206,3 +206,17 @@ TEST(test_2048_core, core_test_game_over_condition)
 
     TEST_ASSERT_EQUAL(true, game_over_condition_met);
 }
+
+
+TEST(test_2048_core, core_test_movement_merging)
+{
+    core_2048_set_tile_score(1, 0, 4);
+    core_2048_set_tile_score(1, 2, 2);
+    core_2048_set_tile_score(1, 3, 2);
+
+    test_helpers_print_score_grid();
+
+    core_2048_movement_update(MOVEMENT_DOWN);
+
+    TEST_ASSERT_EQUAL(4U, core_2048_get_tile_score(1, 3));
+}
