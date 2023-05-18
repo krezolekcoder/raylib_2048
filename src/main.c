@@ -93,8 +93,7 @@ void prv_check_key_pressed(KeyboardKey key_pressed)
                 uint32_t y_coord = 0U;
 
                 core_2048_get_random_free_tile_coords(&x_coord, &y_coord);
-
-                core_2048_set_tile_score(y_coord, x_coord, 2U);
+                core_2048_set_tile_score(x_coord, y_coord, 2U);
 
                 break;
             }

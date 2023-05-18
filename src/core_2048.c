@@ -293,14 +293,18 @@ void core_2048_get_random_free_tile_coords(uint32_t *x_coord, uint32_t *y_coord)
                 coords[coords_pair_idx].y = y_tile;
 
                 coords_pair_idx++;
-
-                printf("PAIR %d X : %d  Y: %d \r\n", coords_pair_idx, x_tile, y_tile);
             }
         }
     }
 
-    uint32_t random_idx = platform_port_get_random_nbr(0U, coords_pair_idx);
+    for (int i = 0; i < coords_pair_idx; i++) {
+        printf("IDX %d X : %d Y : %d \r\n", i, coords[i].x, coords[i].y);
+    }
 
+    uint32_t random_idx = platform_port_get_random_nbr(0U, coords_pair_idx - 1);
+
+    printf("RANDOM idx : %d  X: %d Y : %d \r\n", random_idx, coords[random_idx].x,
+           coords[random_idx].y);
     // printf("RANDOM IDX : %d x_coord %d y_coord %d \r\n", random_idx, coords[random_idx].x,
     //        coords[random_idx].y);
 
