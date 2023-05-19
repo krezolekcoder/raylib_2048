@@ -207,7 +207,6 @@ TEST(test_2048_core, core_test_game_over_condition)
     TEST_ASSERT_EQUAL(true, game_over_condition_met);
 }
 
-
 TEST(test_2048_core, core_test_movement_merging)
 {
     core_2048_set_tile_score(1, 0, 4);
@@ -219,4 +218,62 @@ TEST(test_2048_core, core_test_movement_merging)
     core_2048_movement_update(MOVEMENT_DOWN);
 
     TEST_ASSERT_EQUAL(4U, core_2048_get_tile_score(1, 3));
+}
+
+TEST(test_2048_core, core_test_movement_alternative)
+{
+
+    typedef struct {
+        uint32_t score;
+        bool     merged;
+    } tile_t;
+
+
+    tile_t tiles_row[4U];
+
+    tiles_row[0].score = 2;
+    tiles_row[1].score = 2;
+    tiles_row[2].score = 0;
+    tiles_row[3].score = 4;
+
+    for (int i = 0; i < 4; i++) {
+        tiles_row[i].merged = false;
+    }
+
+    printf("\r\n");
+    for (int i = 0; i < 4; i++) {
+        printf("%d ", tiles_row[i].score);
+    }
+
+    // DO SOME LOGIC
+
+    for (int x_tile_pos = 2U; x_tile_pos >= 0; x_tile_pos--) {
+        for (int x_shift_movement = x_tile_pos; x_shift_movement < 3; x_shift_movement++) {
+
+            printf("X tile : %d X SHIFT %d \r\n", x_tile_pos, x_shift_movement);
+            if (tiles_row[x_shift_movement + 1].score == 0) {
+                tiles_row[x_shift_movement + 1].score = tiles_row[x_shift_movement].score;
+                tiles_row[x_shift_movement].score     = 0;
+            }
+            else if ((tiles_row[x_shift_movement + 1].score == tiles_row[x_shift_movement].score) &&
+                     (tiles_row[x_shift_movement + 1].merged == false &&
+                      tiles_row[x_shift_movement].merged == false)) {
+                printf("\r\n MERGING ! : x %d %d ", x_shift_movement, x_shift_movement + 1);
+                tiles_row[x_shift_movement + 1].score += tiles_row[x_shift_movement].score;
+                tiles_row[x_shift_movement + 1].merged = true;
+                tiles_row[x_shift_movement].score      = 0;
+            }
+
+            printf("\r\n");
+            for (int i = 0; i < 4; i++) {
+                printf("%d ", tiles_row[i].score);
+            }
+
+            printf("\r\n");
+            for (int i = 0; i < 4; i++) {
+                printf("%d ", tiles_row[i].merged);
+            }
+        }
+    }
+    // START FROM IDX = 1
 }

@@ -14,3 +14,12 @@ void test_helpers_print_score_grid(void)
         printf("\r\n");
     }
 }
+
+void test_helpers_print_row(uint32_t *row, uint8_t size)
+{
+    printf("\r\n");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", row[i]);
+    }
+    printf("\r\n");
+}
