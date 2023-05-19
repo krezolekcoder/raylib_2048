@@ -232,7 +232,7 @@ TEST(test_2048_core, core_test_movement_alternative)
     core_2048_movement_update_alternative(MOVEMENT_RIGHT);
 
     TEST_ASSERT_EQUAL(2U, core_2048_get_tile_score(3, 0));
-
+    test_helpers_clear_grid();
     // [2 2 0 4] - only one merging occuring
     core_2048_set_tile_score(0, 0, 2);
     core_2048_set_tile_score(1, 0, 2);
@@ -245,6 +245,37 @@ TEST(test_2048_core, core_test_movement_alternative)
 
     TEST_ASSERT_EQUAL(4U, core_2048_get_tile_score(3, 0));
     TEST_ASSERT_EQUAL(4U, core_2048_get_tile_score(2, 0));
+    test_helpers_clear_grid();
+
+    // [2 0 2 0]
+
+    core_2048_set_tile_score(0, 0, 2);
+    core_2048_set_tile_score(2, 0, 2);
+
+    core_2048_movement_update_alternative(MOVEMENT_RIGHT);
+    TEST_ASSERT_EQUAL(4U, core_2048_get_tile_score(3, 0));
+    test_helpers_clear_grid();
+    // [0 0 2 0 ]
+
+    core_2048_set_tile_score(2, 0, 2);
+
+    test_helpers_print_score_grid();
+
+    core_2048_movement_update_alternative(MOVEMENT_RIGHT);
+    TEST_ASSERT_EQUAL(2U, core_2048_get_tile_score(3, 0));
 
     test_helpers_clear_grid();
+
+    // MOVEMENT LEFT
+
+    // [0 0 0 2]
+
+    core_2048_set_tile_score(0, 0, 0);
+    core_2048_set_tile_score(1, 0, 0);
+    core_2048_set_tile_score(2, 0, 0);
+    core_2048_set_tile_score(3, 0, 2);
+
+    core_2048_movement_update_alternative(MOVEMENT_LEFT);
+
+    TEST_ASSERT_EQUAL(2U, core_2048_get_tile_score(0, 0));
 }

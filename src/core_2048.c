@@ -157,8 +157,10 @@ bool core_2048_movement_update(movement_type_t movement)
 
 bool core_2048_movement_update_alternative(movement_type_t movement)
 {
-
+    uint32_t loc_tiles[4];
     for (int y_tile_pos = 0U; y_tile_pos < TILE_CNT_ROW; y_tile_pos++) {
+
+        // loc_tiles[0] = prv_game_tiles_score[]
         for (int x_tile_pos = 2U; x_tile_pos >= 0; x_tile_pos--) {
             for (int x_shift_movement = x_tile_pos; x_shift_movement < 3; x_shift_movement++) {
 
