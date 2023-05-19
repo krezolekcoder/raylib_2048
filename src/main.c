@@ -48,7 +48,8 @@ int main(void)
 
     // double input_process_time = GetTime();
 
-    core_2048_tiles_init(2, 4);
+    core_2048_set_tile_score(0, 2, 4);
+    core_2048_set_tile_score(3, 1, 2);
     //--------------------------------------------------------------------------------------
     // Main game loop
     while (!WindowShouldClose())  // Detect window close button or ESC key

@@ -16,10 +16,7 @@ typedef enum {
 } movement_type_t;
 
 
-
-void     core_2048_tiles_init(uint32_t first_tile_init_pos, uint32_t second_tile_init_pos);
 bool     core_2048_movement_update(movement_type_t movement);
-bool     core_2048_movement_update_alternative(movement_type_t movement);
 bool     core_2048_check_gameover_condition(void);
 uint32_t core_2048_get_tile_score(uint32_t x_coord, uint32_t y_coord);
 void     core_2048_set_tile_score(uint32_t x_coord, uint32_t y_coord, uint32_t score);
