@@ -24,5 +24,6 @@ bool     core_2048_check_gameover_condition(void);
 uint32_t core_2048_get_tile_score(uint32_t x_coord, uint32_t y_coord);
 void     core_2048_set_tile_score(uint32_t x_coord, uint32_t y_coord, uint32_t score);
 void     core_2048_get_random_free_tile_coords(uint32_t *x_coord, uint32_t *y_coord);
+void     core_2048_clear_merging_info(void);
 
 #endif /* CORE_2048_H */

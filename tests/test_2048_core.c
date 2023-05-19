@@ -223,57 +223,28 @@ TEST(test_2048_core, core_test_movement_merging)
 TEST(test_2048_core, core_test_movement_alternative)
 {
 
-    typedef struct {
-        uint32_t score;
-        bool     merged;
-    } tile_t;
+    // [2 0 0 0] - simple one tile shift test
+    core_2048_set_tile_score(0, 0, 2);
+    core_2048_set_tile_score(1, 0, 0);
+    core_2048_set_tile_score(2, 0, 0);
+    core_2048_set_tile_score(3, 0, 0);
 
+    core_2048_movement_update_alternative(MOVEMENT_RIGHT);
 
-    tile_t tiles_row[4U];
+    TEST_ASSERT_EQUAL(2U, core_2048_get_tile_score(3, 0));
 
-    tiles_row[0].score = 2;
-    tiles_row[1].score = 2;
-    tiles_row[2].score = 0;
-    tiles_row[3].score = 4;
+    // [2 2 0 4] - only one merging occuring
+    core_2048_set_tile_score(0, 0, 2);
+    core_2048_set_tile_score(1, 0, 2);
+    core_2048_set_tile_score(2, 0, 0);
+    core_2048_set_tile_score(3, 0, 4);
 
-    for (int i = 0; i < 4; i++) {
-        tiles_row[i].merged = false;
-    }
+    test_helpers_print_score_grid();
 
-    printf("\r\n");
-    for (int i = 0; i < 4; i++) {
-        printf("%d ", tiles_row[i].score);
-    }
+    core_2048_movement_update_alternative(MOVEMENT_RIGHT);
 
-    // DO SOME LOGIC
+    TEST_ASSERT_EQUAL(4U, core_2048_get_tile_score(3, 0));
+    TEST_ASSERT_EQUAL(4U, core_2048_get_tile_score(2, 0));
 
-    for (int x_tile_pos = 2U; x_tile_pos >= 0; x_tile_pos--) {
-        for (int x_shift_movement = x_tile_pos; x_shift_movement < 3; x_shift_movement++) {
-
-            printf("X tile : %d X SHIFT %d \r\n", x_tile_pos, x_shift_movement);
-            if (tiles_row[x_shift_movement + 1].score == 0) {
-                tiles_row[x_shift_movement + 1].score = tiles_row[x_shift_movement].score;
-                tiles_row[x_shift_movement].score     = 0;
-            }
-            else if ((tiles_row[x_shift_movement + 1].score == tiles_row[x_shift_movement].score) &&
-                     (tiles_row[x_shift_movement + 1].merged == false &&
-                      tiles_row[x_shift_movement].merged == false)) {
-                printf("\r\n MERGING ! : x %d %d ", x_shift_movement, x_shift_movement + 1);
-                tiles_row[x_shift_movement + 1].score += tiles_row[x_shift_movement].score;
-                tiles_row[x_shift_movement + 1].merged = true;
-                tiles_row[x_shift_movement].score      = 0;
-            }
-
-            printf("\r\n");
-            for (int i = 0; i < 4; i++) {
-                printf("%d ", tiles_row[i].score);
-            }
-
-            printf("\r\n");
-            for (int i = 0; i < 4; i++) {
-                printf("%d ", tiles_row[i].merged);
-            }
-        }
-    }
-    // START FROM IDX = 1
+    test_helpers_clear_grid();
 }

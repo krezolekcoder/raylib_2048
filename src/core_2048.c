@@ -162,7 +162,7 @@ bool core_2048_movement_update_alternative(movement_type_t movement)
         for (int x_tile_pos = 2U; x_tile_pos >= 0; x_tile_pos--) {
             for (int x_shift_movement = x_tile_pos; x_shift_movement < 3; x_shift_movement++) {
 
-                printf("X tile : %d X SHIFT %d \r\n", x_tile_pos, x_shift_movement);
+                // printf("X tile : %d X SHIFT %d \r\n", x_tile_pos, x_shift_movement);
                 if (prv_game_tiles_score[y_tile_pos][x_shift_movement + 1].score == 0) {
                     prv_game_tiles_score[y_tile_pos][x_shift_movement + 1].score =
                         prv_game_tiles_score[y_tile_pos][x_shift_movement].score;
@@ -172,27 +172,32 @@ bool core_2048_movement_update_alternative(movement_type_t movement)
                           prv_game_tiles_score[y_tile_pos][x_shift_movement].score) &&
                          (prv_game_tiles_score[y_tile_pos][x_shift_movement + 1].merged == false &&
                           prv_game_tiles_score[y_tile_pos][x_shift_movement].merged == false)) {
-                    printf("\r\n MERGING ! : x %d %d ", x_shift_movement, x_shift_movement + 1);
+                    // printf("\r\n MERGING ! : x %d %d ", x_shift_movement, x_shift_movement + 1);
                     prv_game_tiles_score[y_tile_pos][x_shift_movement + 1].score +=
                         prv_game_tiles_score[y_tile_pos][x_shift_movement].score;
                     prv_game_tiles_score[y_tile_pos][x_shift_movement + 1].merged = true;
                     prv_game_tiles_score[y_tile_pos][x_shift_movement].score      = 0;
                 }
 
-                printf("\r\n");
-                for (int i = 0; i < 4; i++) {
-                    printf("%d ", prv_game_tiles_score[y_tile_pos][i].score);
-                }
-
-                printf("\r\n");
-                for (int i = 0; i < 4; i++) {
-                    printf("%d ", prv_game_tiles_score[y_tile_pos][i].merged);
-                }
+                // printf("\r\n");
+                // for (int i = 0; i < 4; i++) {
+                //     printf("%d ", prv_game_tiles_score[y_tile_pos][i].merged);
+                // }
             }
         }
+        break;
     }
 }
 
+
+void core_2048_clear_merging_info(void)
+{
+    for (int y = 0; y < TILE_CNT_ROW; y++) {
+        for (int x = 0; x < TILE_CNT_ROW; x++) {
+            prv_game_tiles_score[y][x].merged = false;
+        }
+    }
+}
 
 
 bool core_2048_check_gameover_condition(void)

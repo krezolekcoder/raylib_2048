@@ -23,3 +23,13 @@ void test_helpers_print_row(uint32_t *row, uint8_t size)
     }
     printf("\r\n");
 }
+
+void test_helpers_clear_grid(void)
+{
+    core_2048_clear_merging_info();
+    for (int y_coord = 0; y_coord < 4; y_coord++) {
+        for (int x_coord = 0; x_coord < 4; x_coord++) {
+            core_2048_set_tile_score(x_coord, y_coord, 0);
+        }
+    }
+}
