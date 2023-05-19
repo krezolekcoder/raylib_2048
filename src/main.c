@@ -14,6 +14,7 @@
 #include "core_2048.h"
 #include "platform_port.h"
 #include <../include/raylib.h>
+#include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -25,6 +26,11 @@ typedef struct {
     KeyboardKey key_mappings[MAX_KEY_MAPPINGS];
 } keyboard_mapping_t;
 
+
+
+static void prv_check_key_pressed(KeyboardKey key_pressed);
+static void prv_2048_game_draw_grid(void);
+
 static const keyboard_mapping_t prv_keys_mapping[MOVEMENT_CNT] = {
     [MOVEMENT_UP].key_mappings    = {KEY_W,  KEY_UP,    KEY_KP_8},
     [MOVEMENT_DOWN].key_mappings  = { KEY_S, KEY_DOWN,  KEY_KP_2},
@@ -32,8 +38,9 @@ static const keyboard_mapping_t prv_keys_mapping[MOVEMENT_CNT] = {
     [MOVEMENT_RIGHT].key_mappings = { KEY_D, KEY_RIGHT, KEY_KP_6},
 };
 
-static void prv_check_key_pressed(KeyboardKey key_pressed);
-static void prv_2048_game_draw_grid(void);
+const Color prv_tile_colors_lut[11U] = { COLOR_EMPTY, COLOR_2,   COLOR_4,    COLOR_8,
+                                         COLOR_16,    COLOR_32,  COLOR_64,   COLOR_128,
+                                         COLOR_256,   COLOR_512, COLOR_1024, COLOR_2048 };
 
 int main(void)
 {
@@ -108,7 +115,9 @@ void prv_2048_game_draw_grid(void)
     for (int y_coord = 0; y_coord < TILE_CNT_ROW; y_coord++) {
         for (int x_coord = 0; x_coord < TILE_CNT_ROW; x_coord++) {
             uint32_t tile_score = core_2048_get_tile_score(x_coord, y_coord);
-            platform_port_draw_tile(x_coord, y_coord, COLOR_16, tile_score, BLACK);
+
+            uint32_t color_idx = log2(tile_score);
+            platform_port_draw_tile(x_coord, y_coord, prv_tile_colors_lut[color_idx], tile_score, BLACK);
         }
     }
 }
