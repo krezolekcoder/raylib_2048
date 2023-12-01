@@ -29,8 +29,6 @@ bool core_2048_movement_update(movement_type_t movement)
     }
 }
 
-
-
 void core_2048_clear_merging_info(void)
 {
     for (int y = 0; y < TILE_CNT_ROW; y++) {
