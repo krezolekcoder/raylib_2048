@@ -42,6 +42,27 @@ const Color prv_tile_colors_lut[11U] = { COLOR_EMPTY, COLOR_2,   COLOR_4,    COL
                                          COLOR_16,    COLOR_32,  COLOR_64,   COLOR_128,
                                          COLOR_256,   COLOR_512, COLOR_1024, COLOR_2048 };
 
+
+#define FRAME_TIME          (0.01667)
+#define FRAMES_PER_MOVEMENT (2)
+#define MOVEMENT_LENGTH     (20)
+
+void get_next_pos_animation(uint32_t *current_x_pos, uint32_t destination_x_pos, double current_time, double *timer)
+{
+    if ((current_time - *timer) >= (FRAMES_PER_MOVEMENT * FRAME_TIME)) {
+
+        *timer = current_time;
+        if (*current_x_pos >= destination_x_pos) {
+            *current_x_pos = destination_x_pos;
+        }
+        else {
+            *current_x_pos += MOVEMENT_LENGTH;
+        }
+    }
+}
+
+
+
 int main(void)
 {
     // Initialization
@@ -53,15 +74,18 @@ int main(void)
     SetTargetFPS(60);  // Set our game to run at 60 frames-per-second
 
 
-    // double input_process_time = GetTime();
+    double timer = GetTime();
 
     core_2048_set_tile_score(0, 2, 4);
     core_2048_set_tile_score(3, 1, 2);
     //--------------------------------------------------------------------------------------
     // Main game loop
+
+    uint32_t pos_counter = 0;
+
     while (!WindowShouldClose())  // Detect window close button or ESC key
     {
-        // current_time = GetTime();
+        double current_time = GetTime();
         // Update
         //----------------------------------------------------------------------------------
 
@@ -69,10 +93,20 @@ int main(void)
         //----------------------------------------------------------------------------------
 
         // Draw
-        //----------------------------------------------------------------------------------
+        //-------   ---------------------------------------------------------------------------
         BeginDrawing();
         ClearBackground(COLOR_EMPTY);
         prv_2048_game_draw_grid();
+
+
+        get_next_pos_animation(&pos_counter, 2 * BLOCK_SIZE, current_time, &timer);
+
+        uint32_t score     = 1024U;
+        uint32_t color_idx = log2(score);
+        platform_port_draw_tile_pixel(pos_counter, 0, prv_tile_colors_lut[color_idx], score, BLACK);
+
+        // platform_port_draw_tile(0, 0, prv_tile_colors_lut[color_idx], score, BLACK);
+
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
