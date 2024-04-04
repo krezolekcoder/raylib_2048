@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/raylib2048.dir/src/main.c.o CMakeFiles/raylib2048.dir/src/platform_port.c.o CMakeFiles/raylib2048.dir/src/core_2048.c.o -o raylib2048  /opt/homebrew/lib/libraylib.dylib 

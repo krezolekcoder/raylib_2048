@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/Users/krezo/Programming/krezolekcoder/raylib_2048/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -isystem /opt/homebrew/include  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/raylib2048.dir/src/main.c.o -c /Users/krezo/Programming/krezolekcoder/raylib_2048/src/main.c",
+  "file": "/Users/krezo/Programming/krezolekcoder/raylib_2048/src/main.c",
+  "output": "CMakeFiles/raylib2048.dir/src/main.c.o"
+},
+{
+  "directory": "/Users/krezo/Programming/krezolekcoder/raylib_2048/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -isystem /opt/homebrew/include  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/raylib2048.dir/src/platform_port.c.o -c /Users/krezo/Programming/krezolekcoder/raylib_2048/src/platform_port.c",
+  "file": "/Users/krezo/Programming/krezolekcoder/raylib_2048/src/platform_port.c",
+  "output": "CMakeFiles/raylib2048.dir/src/platform_port.c.o"
+},
+{
+  "directory": "/Users/krezo/Programming/krezolekcoder/raylib_2048/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -isystem /opt/homebrew/include  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/raylib2048.dir/src/core_2048.c.o -c /Users/krezo/Programming/krezolekcoder/raylib_2048/src/core_2048.c",
+  "file": "/Users/krezo/Programming/krezolekcoder/raylib_2048/src/core_2048.c",
+  "output": "CMakeFiles/raylib2048.dir/src/core_2048.c.o"
+}
+]
